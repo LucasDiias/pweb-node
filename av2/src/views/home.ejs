@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+  </head>
+  <body>
+    <h1>Biblioteca</h1>
+    <button onclick="window.location.href='/novo'">+ Novo</button>
+    <table>
+      <thead>
+        <th>id</th>
+        <th>Nome</th>
+        <th></th>
+        <th></th>
+      </thead>
+      <tbody>
+        <% for (let i = 0; i < livros.length; i++) { %>
+        <tr>
+          <td><%= livros[i].id %></td>
+          <td><%= livros[i].nome %></td>
+          <td>
+            <button
+              onclick="window.location.href='/editar/<%= livros[i].id %>'"
+            >
+              Editar
+            </button>
+          </td>
+          <td><a href="/livros/del/<%= livros[i].id %>">Excluir</a></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </body>
+</html>
