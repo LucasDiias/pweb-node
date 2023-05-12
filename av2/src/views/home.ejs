@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -8,7 +8,7 @@
   </head>
   <body>
     <h1>Biblioteca</h1>
-    <button onclick="window.location.href='/novo'">+ Novo</button>
+    <button onclick="window.location.href='/cadastro'">Cadastrar Livro</button>
     <table>
       <thead>
         <th>id</th>
@@ -17,20 +17,22 @@
         <th></th>
       </thead>
       <tbody>
-        <% for (let i = 0; i < livros.length; i++) { %>
+        <% livros.forEach((livro) => { %>
         <tr>
-          <td><%= livros[i].id %></td>
-          <td><%= livros[i].nome %></td>
+          <td><%= livro.id %></td>
+          <td><%= livro.titulo %></td>
           <td>
-            <button
-              onclick="window.location.href='/editar/<%= livros[i].id %>'"
-            >
+            <button onclick="window.location.href='/editar/<%= livro.id %>'">
               Editar
             </button>
           </td>
-          <td><a href="/livros/del/<%= livros[i].id %>">Excluir</a></td>
+          <td>
+            <form action="/livros/<%= livro.id %>?_method=DELETE" method="post">
+              <button type="submit">Excluir</button>
+            </form>
+          </td>
         </tr>
-        <% } %>
+        <% }) %>
       </tbody>
     </table>
   </body>
