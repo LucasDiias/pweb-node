@@ -36,7 +36,25 @@ app.get("/", (req, res) => {
 });
 
 app.get("/aluno", (req, res) => {
-  res.render("aluno");
+  let options = {
+    title: "Novo Aluno",
+    aluno: null,
+  };
+  if (req.query.matricula) {
+    const { matricula } = req.query;
+    options = {
+      title: "Editar Aluno",
+      aluno: alunos.find((aluno) => aluno.matricula === matricula),
+    };
+  }
+  res.render("aluno", options);
+});
+
+app.delete("/alunos", (req, res) => {
+  const { matricula } = req.body;
+  const index = alunos.findIndex((aluno) => aluno.matricula === matricula);
+
+  alunos.splice(index, 1);
 });
 
 app.listen(port, () => {

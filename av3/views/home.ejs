@@ -8,8 +8,8 @@
   </head>
   <body>
     <h1>Alunos</h1>
-    <a href="/aluno">Cadastrar Aluno</a>
-    <form action="">
+    <button onclick="window.location.href='/aluno'">Cadastrar Aluno</button>
+    <table>
       <thead>
         <tr>
           <th>Matrícula</th>
@@ -42,6 +42,14 @@
         </tr>
         <% }) %>
       </tbody>
-    </form>
+    </table>
+    <script>
+      function del(matricula) {
+        fetch("/alunos", {
+          method: "DELETE",
+          body: JSON.stringify({ matricula }),
+        }).then(window.location.reload());
+      }
+    </script>
   </body>
 </html>
