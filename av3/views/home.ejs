@@ -4,7 +4,27 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f1f1f1;
+        margin: 15px;
+      }
+
+      table {
+        margin-top: 15px;
+      }
+
+      td,
+      th {
+        padding: 0.5rem;
+      }
+
+      th {
+        text-align: left;
+      }
+    </style>
+    <title>Alunos</title>
   </head>
   <body>
     <h1>Alunos</h1>
@@ -12,9 +32,10 @@
     <table>
       <thead>
         <tr>
-          <th>Matrícula</th>
+          <th>ID</th>
           <th>Nome</th>
           <th>Data de Nascimento</th>
+          <th>Matrícula</th>
           <th>Status</th>
           <th>E-mail</th>
           <th></th>
@@ -24,30 +45,28 @@
       <tbody>
         <% alunos.forEach((aluno) => { %>
         <tr>
-          <td><%= aluno.matricula %></td>
+          <td><%= aluno.id %></td>
           <td><%= aluno.nome %></td>
           <td><%= aluno.dataNasc %></td>
+          <td><%= aluno.matricula %></td>
           <td><%= aluno.status %></td>
           <td><%= aluno.email %></td>
           <td>
-            <button
-              onclick="window.location.href='aluno?matricula=<%= aluno.matricula %>'"
-            >
+            <button onclick="window.location.href='aluno/<%= aluno.id %>'">
               Editar
             </button>
           </td>
           <td>
-            <button onclick="del('<%= aluno.matricula %>')">Excluir</button>
+            <button onclick="del('<%= aluno.id %>')">Excluir</button>
           </td>
         </tr>
         <% }) %>
       </tbody>
     </table>
     <script>
-      function del(matricula) {
-        fetch("/alunos", {
+      function del(id) {
+        fetch(`/alunos/${id}`, {
           method: "DELETE",
-          body: JSON.stringify({ matricula }),
         }).then(window.location.reload());
       }
     </script>
