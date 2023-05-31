@@ -1,4 +1,12 @@
 import express from "express";
+import db from "./db.js";
+import {
+  create,
+  findAll,
+  findById,
+  update,
+  remove,
+} from "./schemas/aluno.schema.js";
 
 const app = express();
 const port = 3000;
@@ -36,7 +44,8 @@ app.set("views", "./views");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
+  const alunos = await findAll();
   res.render("home", { alunos: alunos });
 });
 
@@ -85,5 +94,6 @@ app.post("/alunos/:id?", (req, res) => {
 });
 
 app.listen(port, () => {
+  db.sync();
   console.log(`App listening at http://localhost:${port}`);
 });
