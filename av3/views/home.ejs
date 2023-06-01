@@ -29,6 +29,10 @@
   <body>
     <h1>Alunos</h1>
     <button onclick="window.location.href='/aluno'">Cadastrar Aluno</button>
+    <form action="/alunos" method="GET">
+      <input type="text" name="search" class="text" />
+      <button type="submit">Buscar</button>
+    </form>
     <table>
       <thead>
         <tr>
@@ -63,6 +67,9 @@
         <% }) %>
       </tbody>
     </table>
+    <% if (search) { %>
+    <p><strong>Resultados da busca por: <%= search %></strong></p>
+    <% } %>
     <script>
       function del(id) {
         fetch(`/alunos/${id}`, {

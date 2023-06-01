@@ -1,4 +1,5 @@
 import Aluno from "../aluno.js";
+import { Op } from "sequelize";
 
 export async function create(data) {
   return await Aluno.create({
@@ -11,15 +12,19 @@ export async function create(data) {
 }
 
 export async function findAll() {
-  return await JSON.stringify(Aluno.findAll());
+  return await Aluno.findAll();
 }
 
 export async function findById(id) {
   return await Aluno.findByPk(id);
 }
 
+export async function findAllByName(nome) {
+  return await Aluno.findAll({ where: { nome: { [Op.like]: `%${nome}%` } } });
+}
+
 export async function update(data) {
-  const aluno = await Aluno.findById(data.id);
+  const aluno = await Aluno.findByPk(data.id);
   aluno.set({
     nome: data.nome,
     dataNasc: data.dataNasc,
